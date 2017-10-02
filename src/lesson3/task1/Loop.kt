@@ -67,7 +67,8 @@ fun digitNumber(n: Int): Int {
     var number=n
     if (number==0) return 1
     while (number>0){
-        if (floorDiv(number,10) !=0) {result++}
+        if (floorDiv(number,10) !=0)
+        {result++}
     number/=10}
     return result
 }
