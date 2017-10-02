@@ -181,8 +181,8 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sin(x: Double, eps: Double): Double {
-    fun factorial(n: Int):Int{
+fun sin(x: Double, eps: Double): Double = TODO()
+    /*fun factorial(n: Int):Int{
         var result=1
         for (i in 1..n){
             result=result*i
@@ -198,7 +198,7 @@ fun sin(x: Double, eps: Double): Double {
         i++
     }
     return sinx
-}
+}*/
 
 /**
  * Средняя
@@ -255,17 +255,17 @@ fun isPalindrome(n: Int): Boolean {
  * Для заданного числа n определить, содержит ли оно различающиеся цифры.
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  */
-fun hasDifferentDigits(n: Int): Boolean{
-    var result=false
+fun hasDifferentDigits(n: Int): Boolean = TODO()
+    /*var result=true
     var number=n
     if (n==0) return false
-    while (number>0){
-        if ((number%10)!=(n%10)) result=true
+    else {while (number>0){
+        if (number%10!=n%10) result=true
         else result=false
         number/=10
     }
-    return result
-}
+        return result
+}}*/
 
 /**
  * Сложная
