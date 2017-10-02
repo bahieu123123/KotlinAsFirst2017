@@ -190,12 +190,13 @@ fun sin(x: Double, eps: Double): Double {
         return result
     }
     var sinx=0.0
-    var i=1.0
-    while (i>=1.0){
-        if (pow((-1.0),i)*pow(x,2.0*i+1.0)/(factorial((2*i+1).toInt()))<eps){
-        sinx=sinx+pow((-1.0),i)*pow(x,2.0*i+1.0)/(factorial((2*i+1).toInt()))}
-    i+=1}
-
+    var i=0.0
+    var a=0.0
+    while (a<eps){
+        a=pow(-1.0,i)*pow(x,2.0*i+1.0)/(factorial((2*i+1).toInt()))
+        sinx+=a
+        i++
+    }
     return sinx
 }
 
@@ -254,7 +255,17 @@ fun isPalindrome(n: Int): Boolean {
  * Для заданного числа n определить, содержит ли оно различающиеся цифры.
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean{
+    var result=false
+    var number=n
+    if (n==0) return false
+    while (number>0){
+        if ((number%10)!=(n%10)) result=true
+        else result=false
+        number/=10
+    }
+    return result
+}
 
 /**
  * Сложная
@@ -263,7 +274,18 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  * 149162536496481100121144...
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var result=1.0
+    var x=1.0
+    var number=n.toDouble()
+    while (number>0){
+        if ((number- digitNumber(sqr(x).toInt()))<=0)
+            result=((sqr(x)% pow(10.0, digitNumber(sqr(x).toInt())-number+1)- sqr(x)% pow(10.0, digitNumber(sqr(x).toInt())-number))/ pow(10.0, digitNumber(sqr(x).toInt())-number))
+        number=number- digitNumber(sqr(x).toInt())
+        x++
+    }
+    return result.toInt()
+}
 
 /**
  * Сложная
