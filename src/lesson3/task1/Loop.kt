@@ -157,15 +157,16 @@ fun maxDivisor(n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    val a = min(m, n) / 2
+    val a = min(m, n)/2
     var result=true
     if ((n==1)||(m==1)) return true
     if ((m % n == 0) || (n % m == 0)){
      return false
-    } else for (i in 2..a){
-    if ((m % i != 0) && (n % i != 0)){
-        result=true
-    } else result=false
+    }
+    for (i in 2..a){
+        if ((m%i==0)&&(n%i==0)){
+            result=false
+        }
     }
      return result
     }
