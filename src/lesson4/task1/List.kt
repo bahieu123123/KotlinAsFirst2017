@@ -138,11 +138,10 @@ fun mean(list: List<Double>): Double{
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double>{
-    var a=list.average()
+    val a=list.average()
     if (list.size==0) return mutableListOf()
     for (i in 0 until list.size) {
-        val element = list[i]
-        list[i] = element - a
+        list[i] = list[i] - a
     }
     return list
 }
@@ -193,8 +192,7 @@ fun polynom(p: List<Double>, x: Double): Double{
 fun accumulate(list: MutableList<Double>): MutableList<Double>{
     if (list.size==0) return mutableListOf()
     for (i in 1 until list.size){
-        val element=list[i]
-        list[i]=list[i-1]+element
+        list[i]=list[i-1]+list[i]
     }
     return list
 }
@@ -325,7 +323,7 @@ fun roman(n: Int): String= TODO()
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String{
-    val list1 = listOf("", "один", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val list1 = listOf("", "однa", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
     val list2 = listOf("", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
     val list3 = listOf("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот")
     val list10To20 = listOf("", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
