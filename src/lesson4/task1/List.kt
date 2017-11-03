@@ -330,12 +330,18 @@ fun russian(n: Int): String{
     val result = mutableListOf<String>()
     val a = n % 10
     var unit :String
-        if (a==1) unit="один"
-        if (a==2) unit="два"
+        if (a==1) {
+            unit="один"
+        } else if (a==2){
+            unit="два"
+        }
         else unit=list1[a]
     var thousand :String
-        if (n/1000%10==1) thousand="тысяча"
-        if (n/1000%10 in 2..4)  thousand="тысячи"
+        if (n/1000%10==1) {
+            thousand="тысяча"
+        } else if (n/1000%10 in 2..4) {
+            thousand="тысячи"
+        }
         else  thousand="тысяч"
     if (n >=1000) {
         result.add(list3[n / 100000 % 10])
