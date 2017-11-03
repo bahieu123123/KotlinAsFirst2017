@@ -324,4 +324,38 @@ fun roman(n: Int): String= TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String{
+    val list1 = listOf("", "одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+    val list2 = listOf("", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
+    val list3 = listOf("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот")
+    val list10To20 = listOf("", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
+    val result = mutableListOf<String>()
+    val a = n % 10
+    var unit :String
+        if (a==1) unit="один"
+        if (a==2) unit="два"
+        else unit=list1[a]
+    var thousand :String
+        if (n/1000%10==1) thousand="тысяча"
+        if (n/1000%10 in 2..4)  thousand="тысячи"
+        else  thousand="тысяч"
+    if (n >=1000) {
+        result.add(list3[n / 100000 % 10])
+        if (n / 1000 % 100 in 11..19) {
+            result.add(list10To20[n / 1000 % 10])
+            result.add("тысяч")
+        } else {
+            result.add(list2[n / 10000 % 10])
+            result.add(list1[n / 1000 % 10])
+            result.add(thousand)
+        }
+    }
+    result.add(list3[n / 100 % 10])
+    if (n % 100 in 11..19){
+        result.add(list10To20[a])
+    } else {
+        result.add(list2[n / 10 % 10])
+        result.add(unit)
+    }
+    return result.filter { it != "" }.joinToString(" ")
+}
