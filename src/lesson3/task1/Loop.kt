@@ -65,11 +65,14 @@ fun digitCountInNumber(n: Int, m: Int): Int =
 fun digitNumber(n: Int): Int {
     var result=1
     var number=n
-    if (number==0) return 1
+    if (number==0){
+        return 1
+    }
     while (number>0){
-        if (floorDiv(number,10) !=0)
-        {result++}
-    number/=10}
+    if (floorDiv(number,10) !=0){
+        result++}
+        number/=10
+    }
     return result
 }
 
@@ -84,16 +87,18 @@ fun fib(n: Int): Int {
     var fibn1=1
     var fibn2=1
     var number=n
-    if ((n==1)||(n==2)) return 1
-    while (number>2)
-    {fibn2=fibn1+fibn2
-        result=fibn2
-        number=number-1
-        if (number>2)
-        {fibn1=fibn2+fibn1
-            result=fibn1
-            number=number-1}}
-
+    if ((n==1)||(n==2)){
+        return 1
+    }
+    while (number>2){
+     fibn2=fibn1+fibn2
+     result=fibn2
+     number=number-1
+     if (number>2) {
+         fibn1 = fibn2 + fibn1
+         result = fibn1
+         number = number - 1
+     }}
     return result
 }
 
@@ -105,12 +110,14 @@ fun fib(n: Int): Int {
  */
 fun lcm(m: Int, n: Int): Int{
     var result=m*n
-    if (max(m,n)% min(m,n)==0) return max(m,n)
-    for (i in 1..min(m,n))
-    {if ((m%i==0)&&(n%i==0)&&((result/i)% max(m,n)==0))
-        result= result/i }
+    if (max(m,n)% min(m,n)==0){
+        return max(m,n)
+    }
+    for (i in 1..min(m,n)){
+    if ((m%i==0)&&(n%i==0)&&((result/i)% max(m,n)==0)) {
+        result = result / i
+    }}
     return result
-
 }
 
 /**
@@ -121,7 +128,9 @@ fun lcm(m: Int, n: Int): Int{
 fun minDivisor(n: Int): Int {
     var result=1
     for (i in n downTo 2) {
-        if (n % i == 0) result=i
+    if (n % i == 0){
+        result=i
+    }
     }
     return result
 }
@@ -133,9 +142,11 @@ fun minDivisor(n: Int): Int {
 fun maxDivisor(n: Int): Int {
     var result=1
     for (i in 1..n/2 ) {
-        if (n % i == 0) result=i
+    if (n % i == 0){
+       result=i
     }
-    return result
+    }
+       return result
 }
 
 /**
@@ -148,12 +159,14 @@ fun maxDivisor(n: Int): Int {
 fun isCoPrime(m: Int, n: Int): Boolean {
     val a = min(m, n) / 2
     var result=true
-    if ((m % n == 0) || (n % m == 0)) return false
-        else for (i in 2..a){
-            if ((m % i != 0) && (n % i != 0)) result=true
-            else result=false
-        }
-    return result
+    if ((m % n == 0) || (n % m == 0)){
+     return false
+    } else for (i in 2..a){
+    if ((m % i != 0) && (n % i != 0)){
+        result=true
+    } else result=false
+    }
+     return result
     }
 
 /**

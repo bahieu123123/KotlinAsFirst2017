@@ -38,10 +38,13 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    if ((age % 100 >=5) && (age % 100 <=20))  return "$age лет"
-    else { if (age % 10 == 1)  return "$age год"
-        else { if ((age % 10 >= 2) && (age % 10 <=4)) return "$age года"
-            else return "$age лет"}}
+    if ((age % 100 >=5) && (age % 100 <=20)){
+        return "$age лет"
+    } else if (age % 10 == 1) {
+        return "$age год"
+    } else if ((age % 10 >= 2) && (age % 10 <=4)) {
+        return "$age года"
+    } else return "$age лет"
 }
 
 
@@ -56,10 +59,12 @@ fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double) : Double{
     val s: Double =((t1*v1+t2*v2+t3*v3)/2)
-    if (t1*v1 >= s) return s/v1
-    else { if ((t1*v1 < s) && (t1*v1+t2*v2 >= s)) return t1+((s-t1*v1)/v2)
-        else ((t1*v1+t2*v2) < s && (t1*v1+v2*t2+t3*v3)>s)
-        return t1+t2+((s-t1*v1-t2*v2)/v3)}
+    if (t1*v1 >= s) {
+        return s/v1
+    } else if ((t1*v1 < s) && (t1*v1+t2*v2 >= s)) {
+        return t1 + ((s - t1 * v1) / v2)
+    } else ((t1*v1+t2*v2) < s && (t1*v1+v2*t2+t3*v3)>s)
+        return t1+t2+((s-t1*v1-t2*v2)/v3)
 }
 
 
@@ -75,10 +80,13 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
-    if ((kingX != rookX1) && (kingX != rookX2) && (kingY != rookY1) && (kingY != rookY1)) return 0
-    else { if (((kingX == rookX1) || (kingY == rookY1)) && ((kingX != rookX2) && (kingY != rookY2))) return 1
-        else { if (((kingX == rookX2) || (kingY == rookY2)) && ((kingX != rookX1) && (kingY != rookY1))) return 2
-            else return 3}}
+    if ((kingX != rookX1) && (kingX != rookX2) && (kingY != rookY1) && (kingY != rookY1)){
+        return 0
+    } else if (((kingX == rookX1) || (kingY == rookY1)) && ((kingX != rookX2) && (kingY != rookY2))) {
+        return 1
+    } else if (((kingX == rookX2) || (kingY == rookY2)) && ((kingX != rookX1) && (kingY != rookY1))) {
+        return 2
+    } else return 3
 }
 
 /**
@@ -96,10 +104,13 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           bishopX: Int, bishopY: Int): Int {
     val Xkb =abs(kingX-bishopX)
     val Ykb =abs(kingY-bishopY)
-    if ((kingX != rookX)&&(kingY != rookY)&&(Xkb !=Ykb)) return 0
-    else { if (((kingX == rookX)||(kingY == rookY))&&((Xkb != Ykb))) return 1
-        else { if (((Xkb == Ykb))&&((kingX !=rookX)&&(kingY !=rookY))) return 2
-            else return 3}}
+    if ((kingX != rookX)&&(kingY != rookY)&&(Xkb !=Ykb)){
+        return 0
+    } else if (((kingX == rookX)||(kingY == rookY))&&((Xkb != Ykb))) {
+        return 1
+    } else if (((Xkb == Ykb))&&((kingX !=rookX)&&(kingY !=rookY))) {
+        return 2
+    } else return 3
 }
 
 /**
@@ -111,10 +122,13 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if ((a>=b+c)||(b>=a+c)||(c>=a+b)) return -1
-    else { if ((sqr(a) == sqr(b)+ sqr(c))||(sqr(b)== sqr(a)+ sqr(c))||(sqr(c)== sqr(a)+ sqr(b))) return 1
-        else { if ((sqr(a)> sqr(b)+ sqr(c))||(sqr(b)> sqr(a)+ sqr(c))||(sqr(c)> sqr(a)+ sqr(b))) return 2
-            else return 0}}
+    if ((a>=b+c)||(b>=a+c)||(c>=a+b)){
+        return -1
+    } else if ((sqr(a) == sqr(b)+ sqr(c))||(sqr(b)== sqr(a)+ sqr(c))||(sqr(c)== sqr(a)+ sqr(b))) {
+        return 1
+    } else if ((sqr(a)> sqr(b)+ sqr(c))||(sqr(b)> sqr(a)+ sqr(c))||(sqr(c)> sqr(a)+ sqr(b))) {
+        return 2
+    } else return 0
 }
 
 /**
@@ -126,9 +140,13 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    if ((b<c)||(a>d)) return -1
-    else { if ((c>=a)&&(b>=d)) return d-c
-        else { if ((a<=c)&&(d>=b)) return b-c
-            else { if ((a>=c)&&(b<=d)) return b-a
-                else return d-a}}}
+    if ((b<c)||(a>d)){
+        return -1
+    } else if ((c>=a)&&(b>=d)) {
+        return d - c
+    } else if ((a<=c)&&(d>=b)) {
+        return b - c
+    } else if ((a>=c)&&(b<=d)) {
+        return b - a
+    } else return d-a
 }
