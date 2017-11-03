@@ -69,7 +69,7 @@ fun digitNumber(n: Int): Int {
         return 1
     }
     while (number>0){
-    if (floorDiv(number,10) !=0){
+    if ((number-number%10)/10 !=0){
         result++}
         number/=10
     }
