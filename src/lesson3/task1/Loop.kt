@@ -64,7 +64,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var result=1
-    var number=n
+    var number= abs(n)
     if (number==0){
         return 1
     }
@@ -109,15 +109,15 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int{
-    var result=m*n
+    var result=1
     if (max(m,n)% min(m,n)==0){
         return max(m,n)
     }
     for (i in 1..min(m,n)){
-    if ((m%i==0)&&(n%i==0)&&((result/i)% max(m,n)==0)) {
-        result = result / i
-    }}
-    return result
+    if ((m%i==0)&&(n%i==0))
+        result = i
+    }
+    return m*n/result
 }
 
 /**
@@ -159,6 +159,7 @@ fun maxDivisor(n: Int): Int {
 fun isCoPrime(m: Int, n: Int): Boolean {
     val a = min(m, n) / 2
     var result=true
+    if ((n==1)||(m==1)) return true
     if ((m % n == 0) || (n % m == 0)){
      return false
     } else for (i in 2..a){
@@ -256,8 +257,8 @@ fun isPalindrome(n: Int): Boolean {
     while (number>9){
         if ((number%10).toDouble()==(number% pow(10.0,x)-number% pow(10.0,x-1))/ pow(10.0,x-1)) result=true
         else result=false
-        number/=10
         number=number% pow(10.0,x-1).toInt()
+        number/=10
         x-=2
     }
     return result
