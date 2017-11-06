@@ -69,8 +69,9 @@ fun digitNumber(n: Int): Int {
         return 1
     }
     while (number>0){
-    if ((number-number%10)/10 !=0){
-        result++}
+        if ((number-number%10)/10 !=0) {
+            result++
+        }
         number/=10
     }
     return result
@@ -91,14 +92,15 @@ fun fib(n: Int): Int {
         return 1
     }
     while (number>2){
-     fibn2=fibn1+fibn2
-     result=fibn2
-     number=number-1
-     if (number>2) {
-         fibn1 = fibn2 + fibn1
-         result = fibn1
-         number = number - 1
-     }}
+        fibn2=fibn1+fibn2
+        result=fibn2
+        number=number-1
+        if (number>2) {
+            fibn1 = fibn2 + fibn1
+            result = fibn1
+            number = number - 1
+        }
+    }
     return result
 }
 
@@ -114,8 +116,8 @@ fun lcm(m: Int, n: Int): Int{
         return max(m,n)
     }
     for (i in 1..min(m,n)){
-    if ((m%i==0)&&(n%i==0))
-        result = i
+        if ((m%i==0)&&(n%i==0))
+            result = i
     }
     return m*n/result
 }
@@ -128,9 +130,9 @@ fun lcm(m: Int, n: Int): Int{
 fun minDivisor(n: Int): Int {
     var result=1
     for (i in n downTo 2) {
-    if (n % i == 0){
-        result=i
-    }
+        if (n % i == 0){
+            result=i
+        }
     }
     return result
 }
@@ -142,9 +144,9 @@ fun minDivisor(n: Int): Int {
 fun maxDivisor(n: Int): Int {
     var result=1
     for (i in 1..n/2 ) {
-    if (n % i == 0){
-       result=i
-    }
+        if (n % i == 0){
+            result=i
+        }
     }
        return result
 }
@@ -161,7 +163,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
     var result=true
     if ((n==1)||(m==1)) return true
     if ((m % n == 0) || (n % m == 0)){
-     return false
+        return false
     }
     for (i in 2..a){
         if ((m%i==0)&&(n%i==0)){
@@ -179,14 +181,14 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    var result=true
-    var k:Double
-    val m1= sqrt(max(m,n).toDouble()).toInt()
-    val n1= sqrt(min(m,n).toDouble()).toInt()
-    for (i in n1..m1){
-        k=i.toDouble()
-        if ((sqr(k)>= min(m,n))&&(sqr(k)<=max(m,n))) result=true
-        else result=false}
+    var result = true
+    var k: Double
+    val m1 = sqrt(max(m, n).toDouble()).toInt()
+    val n1 = sqrt(min(m, n).toDouble()).toInt()
+    for (i in n1..m1) {
+        k = i.toDouble()
+        result = ((sqr(k) >= min(m, n)) && (sqr(k) <= max(m, n)))
+    }
     return result
 }
 
@@ -256,8 +258,8 @@ fun isPalindrome(n: Int): Boolean {
     if ((n>=0)&&(n<=9)) return true
     var number=n
     while (number>9){
-        if ((number%10).toDouble()==(number% pow(10.0,x)-number% pow(10.0,x-1))/ pow(10.0,x-1)) result=true
-        else result=false
+        result=((number%10).toDouble()==(number% pow(10.0,x)-number% pow(10.0,x-1))/
+                pow(10.0,x-1))
         number=number% pow(10.0,x-1).toInt()
         number/=10
         x-=2
@@ -296,7 +298,9 @@ fun squareSequenceDigit(n: Int): Int {
     var number=n.toDouble()
     while (number>0){
         if ((number- digitNumber(sqr(x).toInt()))<=0)
-            result=((sqr(x)% pow(10.0, digitNumber(sqr(x).toInt())-number+1)- sqr(x)% pow(10.0, digitNumber(sqr(x).toInt())-number))/ pow(10.0, digitNumber(sqr(x).toInt())-number))
+            result=((sqr(x)% pow(10.0, digitNumber(sqr(x).toInt())-number+1)-
+                    sqr(x)% pow(10.0, digitNumber(sqr(x).toInt())-number))/
+                    pow(10.0, digitNumber(sqr(x).toInt())-number))
         number=number- digitNumber(sqr(x).toInt())
         x++
     }
@@ -316,7 +320,9 @@ fun fibSequenceDigit(n: Int): Int {
     var number=n.toDouble()
     while (number>0) {
         if ((number- digitNumber(fib(x)))<=0)
-        result=(fib(x)% pow(10.0, digitNumber(fib(x))-number+1)- fib(x)% pow(10.0, digitNumber(fib(x))-number))/ pow(10.0, digitNumber(fib(x))-number)
+        result=(fib(x)% pow(10.0, digitNumber(fib(x))-number+1)-
+                fib(x)% pow(10.0, digitNumber(fib(x))-number))/
+                pow(10.0, digitNumber(fib(x))-number)
         number=number- digitNumber(fib(x))
         x++}
     return result.toInt()
