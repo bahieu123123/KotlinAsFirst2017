@@ -20,7 +20,8 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
 fun isNumberHappy(number: Int): Boolean {
-    return ((number%10+(number%100-number%10)/10)==((number%10000-number%1000)/1000+(number%1000-number%100)/100))
+    return ((number%10+(number%100-number%10)/10)==((number%10000-number%1000)/1000+
+            (number%1000-number%100)/100))
 }
 
 /**
