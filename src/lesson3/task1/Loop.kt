@@ -298,8 +298,8 @@ fun squareSequenceDigit(n: Int): Int {
     var number=n.toDouble()
     while (number>0){
         if ((number- digitNumber(sqr(x).toInt()))<=0)
-            result=((sqr(x)% pow(10.0, digitNumber(sqr(x).toInt())-number+1)-
-                    sqr(x)% pow(10.0, digitNumber(sqr(x).toInt())-number))/
+            result=((sqr(x)% pow(10.0, digitNumber(sqr(x).toInt())-number+1)
+                    -sqr(x)% pow(10.0, digitNumber(sqr(x).toInt())-number))/
                     pow(10.0, digitNumber(sqr(x).toInt())-number))
         number=number- digitNumber(sqr(x).toInt())
         x++
@@ -320,8 +320,8 @@ fun fibSequenceDigit(n: Int): Int {
     var number=n.toDouble()
     while (number>0) {
         if ((number- digitNumber(fib(x)))<=0)
-        result=(fib(x)% pow(10.0, digitNumber(fib(x))-number+1)-
-                fib(x)% pow(10.0, digitNumber(fib(x))-number))/
+        result=(fib(x)% pow(10.0, digitNumber(fib(x))-number+1)
+                -fib(x)% pow(10.0, digitNumber(fib(x))-number))/
                 pow(10.0, digitNumber(fib(x))-number)
         number=number- digitNumber(fib(x))
         x++}
