@@ -240,7 +240,7 @@ fun mostExpensive(description: String): String {
         }
         return result
     } catch (e: NumberFormatException) {
-        return ""
+        return "Any good with price 0.0"
     }
 }
 
