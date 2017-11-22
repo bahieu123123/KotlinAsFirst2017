@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task2
 
 import lesson1.task1.sqr
@@ -20,8 +21,8 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
 fun isNumberHappy(number: Int): Boolean {
-    return ((number%10+(number%100-number%10)/10)==((number%10000-number%1000)/1000
-            +(number%1000-number%100)/100))
+    return ((number % 10 + (number % 100 - number % 10) / 10) == ((number % 10000 - number % 1000) / 1000
+            + (number % 1000 - number % 100) / 100))
 }
 
 /**
@@ -32,9 +33,9 @@ fun isNumberHappy(number: Int): Boolean {
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
-    val X2q=abs(x1-x2)
-    val Y2q=abs(y1-y2)
-    return ((x1==x2)||(y1==y2)||(X2q==Y2q))
+    val X2q = abs(x1 - x2)
+    val Y2q = abs(y1 - y2)
+    return ((x1 == x2) || (y1 == y2) || (X2q == Y2q))
 }
 
 /**
@@ -45,9 +46,9 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
  * Вернуть true, если утверждение верно
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
-                 x2: Double, y2: Double, r2: Double): Boolean {
-    return (r2-(sqrt(sqr(x1-x2)+ sqr(y1-y2))))>=r1
-}
+                 x2: Double, y2: Double, r2: Double): Boolean =
+        (r2 - (sqrt(sqr(x1 - x2) + sqr(y1 - y2)))) >= r1
+
 
 /**
  * Средняя
@@ -59,21 +60,11 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    fun min(x: Int, y: Int, z: Int): Int {
-        if ((x <= y) && (x <= z)) {
-            return x
-        } else if ((y <= x) && (y <= z)) {
-            return y
-        } else return z
-    }
-
-    fun ave(x: Int, y: Int, z: Int): Int {
-        if (((x >= y) && (x <= z)) || ((x >= z) && (x <= y))) {
-            return x
-        } else if (((y >= z) && (y <= x)) || ((y >= x) && (y <= z))) {
-            return y
-        } else return z
-    }
-    return (((min(a, b, c)) <= min(r, s)) && (ave(a, b, c) <= max(r, s)))
+    val min1 = minOf(a, b, c)
+    val max1 = maxOf(a, b, c)
+    val min2 = minOf(r, s)
+    val med1 = a + b + c - min1 - max1
+    val max2 = maxOf(r, s)
+    return min1 <= min2 && med1 <= max2
 }
 
