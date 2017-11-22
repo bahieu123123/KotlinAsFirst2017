@@ -236,6 +236,7 @@ fun firstDuplicateIndex(str: String): Int {
  */
 fun mostExpensive(description: String): String {
     val parts = description.split("; ", " ").toMutableList()
+    if (parts.size % 2 != 0 && parts.size < 2) return ""
     var a = 0.0
     var result = ""
     try {
