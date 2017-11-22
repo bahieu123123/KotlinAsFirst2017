@@ -158,7 +158,7 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки вернуть -1.
  */
 fun bestHighJump(jumps: String): Int {
-    val parts = jumps.split(" ").filter { it !in "%-" }
+    val parts = jumps.split(" ").filter { it !in " %-" }
     var list = mutableListOf<String>()
     var result = -1
     try {
@@ -235,21 +235,18 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть положительными
  */
 fun mostExpensive(description: String): String {
-    val parts = description.split("; ", " ").toMutableList()
-    if (parts.size % 2 != 0 && parts.size < 2) return ""
-    var a = 0.0
+    val parts = description.filter { it !in ";" }.split(" ")
+    val lists = mutableListOf<String>()
     var result = ""
-    try {
-        for (i in 1 until parts.size step 2) {
-            if (parts[i].toDouble() > a) {
-                a = parts[i].toDouble()
-                result = parts[i - 1]
-            }
-        }
-        return result
-    } catch (e: NumberFormatException) {
-        return ""
+    if (description == "") return ""
+    for (i in 1..parts.size - 1 step 2) {
+        lists.add(parts[i])
     }
+    val m = lists.map { it.toDouble() }.max()
+    for (i in 0..parts.size - 1) {
+        if (parts[i] == m.toString()) result += parts[i - 1] + " "
+    }
+    return result.trim()
 }
 
 /**
