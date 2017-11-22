@@ -135,14 +135,14 @@ fun flattenPhoneNumber(phone: String): String {
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    val a = jumps.split(" ", "-", "%")
-    var b = -1
+    val parts = jumps.split(" ", "-", "%")
+    var result = -1
     try {
-        for (part in a) {
+        for (part in parts) {
             if (part == "") continue
-            if (b < part.toInt()) b = part.toInt()
+            if (result < part.toInt()) result = part.toInt()
         }
-        return b
+        return result
     } catch (e: NumberFormatException) {
         return -1
     }
@@ -158,7 +158,23 @@ fun bestLongJump(jumps: String): Int {
  * Прочитать строку и вернуть максимальную взятую высоту (230 в примере).
  * При нарушении формата входной строки вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    val parts = jumps.split(" ", "%", "-")
+    var list = mutableListOf<String>()
+    var result = -1
+    try {
+        for (part in parts) {
+            if (part != "") list.add(part)
+        }
+        for (i in 0 until list.size) {
+            if ((list[i] == "+") && (list[i - 1].toInt() > result))
+                result = list[i - 1].toInt()
+        }
+        return result
+    } catch (e: NumberFormatException) {
+        return -1
+    }
+}
 
 /**
  * Сложная
@@ -169,7 +185,24 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    val parts = expression.split(" ")
+    if (parts.size % 2 == 0) throw IllegalArgumentException()
+    try {
+        var result = parts[0].toInt()
+        for (i in 1..parts.size - 2 step 2) {
+            val number = parts[i + 1].toInt()
+            when (parts[i]) {
+                "+" -> result += number
+                "-" -> result -= number
+                else -> throw IllegalArgumentException()
+            }
+        }
+        return result
+    } catch (e: NumberFormatException) {
+        throw IllegalArgumentException()
+    }
+}
 
 /**
  * Сложная
@@ -180,7 +213,16 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    val parts = str.toLowerCase().split(" ")
+    var numb = 0
+    for (i in 1..parts.size - 1) {
+        if (parts[i] == parts[i - 1])
+            return numb
+        numb += parts[i - 1].length + 1
+    }
+    return -1
+}
 
 /**
  * Сложная
@@ -193,7 +235,22 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть положительными
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    val parts = description.split("; ", " ").toMutableList()
+    var a = 0.0
+    var result = ""
+    try {
+        for (i in 1 until parts.size step 2) {
+            if (parts[i].toDouble() > a) {
+                a = parts[i].toDouble()
+                result = parts[i - 1]
+            }
+        }
+        return result
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+}
 
 /**
  * Сложная
