@@ -119,7 +119,7 @@ fun dateDigitToStr(digital: String): String {
  */
 fun flattenPhoneNumber(phone: String): String {
     val parts = phone.filter { it !in "- ()" }
-    if (parts.any { it !in '0'..'9' && it != '+' } || parts == "+") return ""
+    if (parts.any { it !in '0'..'9' && it != '+' }) return ""
     return parts
 }
 
@@ -135,11 +135,10 @@ fun flattenPhoneNumber(phone: String): String {
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    val parts = jumps.split(" ", "-", "%")
+    val parts = jumps.split(" ").filter { it !in "%-" }
     var result = -1
     try {
         for (part in parts) {
-            if (part == "") continue
             if (result < part.toInt()) result = part.toInt()
         }
         return result
@@ -159,12 +158,12 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки вернуть -1.
  */
 fun bestHighJump(jumps: String): Int {
-    val parts = jumps.split(" ", "%", "-")
+    val parts = jumps.split(" ").filter { it !in "%-" }
     var list = mutableListOf<String>()
     var result = -1
     try {
         for (part in parts) {
-            if (part != "") list.add(part)
+            list.add(part)
         }
         for (i in 0 until list.size) {
             if ((list[i] == "+") && (list[i - 1].toInt() > result))

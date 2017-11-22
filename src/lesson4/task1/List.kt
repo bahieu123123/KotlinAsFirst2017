@@ -112,10 +112,8 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  */
 fun abs(v: List<Double>): Double {
     var result = 0.0
-    if (v.size != 0) {
-        for (i in 0 until v.size) {
-            result = result + sqr(v[i])
-        }
+    for (i in 0 until v.size) {
+        result = result + sqr(v[i])
     }
     return sqrt(result)
 }
@@ -154,7 +152,6 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
 fun times(a: List<Double>, b: List<Double>): Double {
-    if (a.size == 0 || b.size == 0) return 0.0
     var result = 0.0
     for (i in 0 until min(a.size, b.size)) {
         result = result + a[i] * b[i]
@@ -310,42 +307,53 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String {
-    val list1 = listOf("", "одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
-    val list2 = listOf("", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто")
-    val list3 = listOf("", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот")
-    val list10To20 = listOf("", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
+fun hundreds(n: Int): MutableList<String> {
+    val list1 = listOf("один", "два", "три", "четыре", "пять", "шесть", "семь",
+            "восемь", "девять")
+    val list = listOf("десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать",
+            "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать")
+    val list2 = listOf("двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят",
+            "семьдесят", "восемьдесят", "девяносто")
+    val list3 = listOf("сто", "двести", "триста", "четыреста", "пятьсот",
+            "шестьсот", "семьсот", "восемьсот", "девятьсот")
+    var number = n
+    val j = number % 10
+    number = number / 10
+    val k = number % 10
+    val l = number / 10
     val result = mutableListOf<String>()
-    val a = n % 10
-    var unit: String
-    if (a == 1) {
-        unit = "один"
-    } else if (a == 2) {
-        unit = "два"
-    } else unit = list1[a]
-    var thousand: String
-    if (n / 1000 % 10 == 1) {
-        thousand = "тысяча"
-    } else if (n / 1000 % 10 in 2..4) {
-        thousand = "тысячи"
-    } else thousand = "тысяч"
-    if (n > 999) {
-        result.add(list3[n / 100000 % 10])
-        if (n / 1000 % 100 in 11..19) {
-            result.add(list10To20[n / 1000 % 10])
-            result.add("тысяч")
+    if (l > 0) result.add(list3[l - 1])
+    if (k > 0) {
+        if (k != 1) {
+            result.add(list2[k - 2])
+            if (j > 0) result.add(list1[j - 1])
         } else {
-            result.add(list2[n / 10000 % 10])
-            result.add(list1[n / 1000 % 10])
-            result.add(thousand)
+            result.add(list[j])
         }
+    } else if (j > 0) result.add(list1[j - 1])
+    return result
+}
+
+fun russian(n: Int): String {
+    val a = n % 1000
+    val number = n / 1000
+    val list1 = hundreds(a)
+    var result = mutableListOf<String>()
+    val b = number % 10
+    if (number != 0) {
+        result = hundreds(number)
+        if (b == 1 && number % 100 != 11) {
+            result.remove("один")
+            result.add("одна тысяча")
+        }
+        if (b == 2 && number % 100 != 12) {
+            result.remove("два")
+            result.add("две тысячи")
+        }
+        if ((b == 3 || b == 4) && number % 100 != 13 && number % 100 != 14) result.add("тысячи")
+        if (b in 5..9 || b == 0 || number % 100 in 11..14) result.add("тысяч")
+        result.addAll(list1)
+        return result.joinToString(separator = " ")
     }
-    result.add(list3[n / 100 % 10])
-    if (n % 100 in 11..19) {
-        result.add(list10To20[a])
-    } else {
-        result.add(list2[n / 10 % 10])
-        result.add(unit)
-    }
-    return result.filter { it != "" }.joinToString(" ")
+    return list1.joinToString(separator = " ")
 }

@@ -123,7 +123,10 @@ fun gcd(m: Int, n: Int): Int {
     return min
 }
 
-fun lcm(m: Int, n: Int): Int = m * n / gcd(m, n)
+fun lcm(m: Int, n: Int): Int {
+    if ((gcd(m, n) % m == 0) || (gcd(m, n) % n == 0)) return gcd(m, n)
+    else return m * n / gcd(m, n)
+}
 
 
 /**
@@ -132,7 +135,7 @@ fun lcm(m: Int, n: Int): Int = m * n / gcd(m, n)
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for (i in 2..n / 2) {
+    for (i in 2..n/2 ) {
         if (n % i == 0) return i
     }
     return n
@@ -147,7 +150,7 @@ fun maxDivisor(n: Int): Int {
     for (i in n / 2 downTo 1) {
         if (n % i == 0) return i
     }
-    return 1
+    return n
 }
 
 /**
