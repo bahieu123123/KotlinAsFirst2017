@@ -191,17 +191,17 @@ fun bisectorByPoints(a: Point, b: Point): Line {
  */
 fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> {
     if (circles.size < 2) throw IllegalArgumentException("findNearestCirclePair")
-    var ans = Pair(circles[0], circles[1])
+    var result = Pair(circles[0], circles[1])
     var distanceBetweenCircles = circles[0].distance(circles[1])
     for (i in 0 until circles.size - 1) {
         for (j in i + 1 until circles.size) {
             if (distanceBetweenCircles > circles[i].distance(circles[j])) {
-                ans = Pair(circles[i], circles[j])
+                result = Pair(circles[i], circles[j])
                 distanceBetweenCircles = circles[i].distance(circles[j])
             }
         }
     }
-    return ans
+    return result
 }
 
 
