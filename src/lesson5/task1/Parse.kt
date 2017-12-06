@@ -119,7 +119,8 @@ fun dateDigitToStr(digital: String): String {
  */
 fun flattenPhoneNumber(phone: String): String {
     val parts = phone.filter { it !in "- ()" }
-    if (parts.any { it !in '0'..'9' && it != '+' }) return ""
+    if (phone.drop(1).any { it == '+' }) return ""
+    if (parts.any { it !in '0'..'9' && it != '+' } || parts == "+") return ""
     return parts
 }
 
@@ -227,21 +228,17 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть положительными
  */
 fun mostExpensive(description: String): String {
-    val parts = description.split("; ", " ").toMutableList()
+    val parts = description.filter { it !in ";" }.split(" ")
+    var numb = 0
     if (parts.size % 2 != 0 && parts.size < 2) return ""
-    var a = 0.0
-    var result = ""
-    try {
-        for (i in 1 until parts.size step 2) {
-            if (parts[i].toDouble() > a) {
-                a = parts[i].toDouble()
-                result = parts[i - 1]
-            }
+    var cost = parts[1].toDouble()
+    for (i in 1..parts.size - 2 step 2) {
+        if (parts[i].toDouble() > cost) {
+            cost = parts[i].toDouble()
+            numb = i - 1
         }
-        return result
-    } catch (e: NumberFormatException) {
-        return ""
     }
+    return parts[numb]
 }
 
 /**

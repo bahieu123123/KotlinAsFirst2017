@@ -123,10 +123,7 @@ fun gcd(m: Int, n: Int): Int {
     return min
 }
 
-fun lcm(m: Int, n: Int): Int {
-    if ((gcd(m, n) % m == 0) || (gcd(m, n) % n == 0)) return gcd(m, n)
-    else return m * n / gcd(m, n)
-}
+fun lcm(m: Int, n: Int): Int = m * n / gcd(m, n)
 
 
 /**
@@ -135,12 +132,13 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for (i in 2..n/2 ) {
-        if (n % i == 0) return i
+    var divisor = 2
+    while (divisor <= sqrt(n.toDouble()).toInt()) {
+        if(n % divisor == 0) return divisor
+        divisor++
     }
     return n
 }
-
 /**
  * Простая
  *
@@ -238,7 +236,7 @@ fun revert(n: Int): Int {
  * первая цифра равна последней, вторая -- предпоследней и так далее.
  * 15751 -- палиндром, 3653 -- нет.
  */
-fun isPalindrome(n: Int): Boolean = revert(n) == n
+fun isPalindrome(n: Int): Boolean = revert(n) - n == 0
 
 /**
  * Средняя

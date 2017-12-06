@@ -157,14 +157,21 @@ class Line private constructor(val b: Double, val angle: Double) {
  *
  * Построить прямую по отрезку
  */
-fun lineBySegment(s: Segment): Line = TODO()
+fun lineBySegment(s: Segment): Line {
+    if (s.begin.x == s.end.x) return Line(s.begin, PI / 2)
+    var alpha = (s.end.y - s.begin.y) / (s.end.x - s.begin.x)
+    alpha = atan(alpha)
+    if (alpha < 0) alpha += PI
+    return Line(s.begin, alpha)
+}
+
 
 /**
  * Средняя
  *
  * Построить прямую по двум точкам
  */
-fun lineByPoints(a: Point, b: Point): Line = TODO()
+fun lineByPoints(a: Point, b: Point): Line = lineBySegment(Segment(a, b))
 
 /**
  * Сложная
@@ -182,7 +189,21 @@ fun bisectorByPoints(a: Point, b: Point): Line {
  * Задан список из n окружностей на плоскости. Найти пару наименее удалённых из них.
  * Если в списке менее двух окружностей, бросить IllegalArgumentException
  */
-fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> = TODO()
+fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> {
+    if (circles.size < 2) throw IllegalArgumentException("findNearestCirclePair")
+    var ans = Pair(circles[0], circles[1])
+    var distanceBetweenCircles = circles[0].distance(circles[1])
+    for (i in 0 until circles.size - 1) {
+        for (j in i + 1 until circles.size) {
+            if (distanceBetweenCircles > circles[i].distance(circles[j])) {
+                ans = Pair(circles[i], circles[j])
+                distanceBetweenCircles = circles[i].distance(circles[j])
+            }
+        }
+    }
+    return ans
+}
+
 
 /**
  * Сложная
