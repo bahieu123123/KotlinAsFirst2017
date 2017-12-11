@@ -232,23 +232,23 @@ fun firstDuplicateIndex(str: String): Int {
  */
 fun mostExpensive(description: String): String {
     var max = 0.0
-    val result = Regex("""(?<= )\d+.\d+""").findAll(description)
-    if (result.toSet().isEmpty())
-        return ""
+    var result = ""
     try {
-        for (element in result) {
-            if (max < element.value.toDouble()) {
-                max = element.value.toDouble()
+        val parts = description.split(";")
+        for (part in parts) {
+            val something = part.trim().split(" ")
+            if (something.size != 2) return ""
+            val num = something[1].toDouble()
+            if (num < 0.0) return ""
+            if (max <= num) {
+                max = num
+                result = something[0]
             }
         }
-    }
-    catch (error: NumberFormatException){
+    } catch (e: NumberFormatException) {
         return ""
     }
-    if (!Regex("""[а-яА-я]+(?=\s$max)""").containsMatchIn(description)){
-        return "$max"
-    }
-    return Regex("""[а-яА-я]+(?=\s$max)""").find(description)!!.value
+    return result
 }
 
 
