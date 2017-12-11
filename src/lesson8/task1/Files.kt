@@ -314,6 +314,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     outputStream.close()
 }
 
+
 /**
  * Сложная
  *
@@ -442,6 +443,7 @@ fun markdownToHtmlLists(inputName: String, outputName: String) {
     outputStream.write("<html><body>$text</body></html>")
     outputStream.close()
 }
+
 
 /**
  * Очень сложная
