@@ -4,6 +4,7 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
+import lesson3.task1.isPrime
 import lesson3.task1.minDivisor
 import java.lang.Math.*
 
@@ -200,14 +201,22 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    val result = mutableListOf<Int>()
-    var k = n
-    while (k > 1) {
-        val r = minDivisor(k)
-        result.add(r)
-        k /= r
+    val multipliers = mutableListOf<Int>()
+    if (isPrime(n)) {
+        multipliers.add(n)
+        return multipliers
     }
-    return result
+    var number = n
+    while (number >= 2) {
+        for (i in 2..n / 2) {
+            if (number % i == 0) {
+                multipliers.add(i)
+                number /= i
+                break
+            }
+        }
+    }
+    return multipliers
 }
 
 /**

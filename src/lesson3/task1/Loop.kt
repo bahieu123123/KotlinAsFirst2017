@@ -123,7 +123,7 @@ fun gcd(m: Int, n: Int): Int {
     return min
 }
 
-fun lcm(m: Int, n: Int): Int = m * n / gcd(m, n)
+fun lcm(m: Int, n: Int): Int = m / gcd(m, n) * n
 
 
 /**
@@ -134,11 +134,12 @@ fun lcm(m: Int, n: Int): Int = m * n / gcd(m, n)
 fun minDivisor(n: Int): Int {
     var divisor = 2
     while (divisor <= sqrt(n.toDouble()).toInt()) {
-        if(n % divisor == 0) return divisor
+        if (n % divisor == 0) return divisor
         divisor++
     }
     return n
 }
+
 /**
  * Простая
  *

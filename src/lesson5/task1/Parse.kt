@@ -118,10 +118,13 @@ fun dateDigitToStr(digital: String): String {
  * При неверном формате вернуть пустую строку
  */
 fun flattenPhoneNumber(phone: String): String {
-    val parts = phone.filter { it !in "- ()" }
-    if (phone.drop(1).any { it == '+' }) return ""
-    if (parts.any { it !in '0'..'9' && it != '+' } || parts == "+") return ""
-    return parts
+    val rightPhoneFormat = Regex("""[-)( ]""").replace(phone, "")
+    val notContainsDigit = rightPhoneFormat.contains(Regex("""([^0-9+])"""))
+    val illegalSymbols = rightPhoneFormat.contains(Regex("""([0-9])"""))
+    if (notContainsDigit || !illegalSymbols)
+        return ""
+    else
+        return rightPhoneFormat
 }
 
 /**
@@ -228,18 +231,26 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть положительными
  */
 fun mostExpensive(description: String): String {
-    val parts = description.filter { it !in ";" }.split(" ")
-    var numb = 0
-    if (parts.size % 2 != 0 && parts.size < 2) return ""
-    var cost = parts[1].toDouble()
-    for (i in 1..parts.size - 2 step 2) {
-        if (parts[i].toDouble() > cost) {
-            cost = parts[i].toDouble()
-            numb = i - 1
+    var max = 0.0
+    val result = Regex("""(?<= )\d+.\d+""").findAll(description)
+    if (result.toSet().isEmpty())
+        return ""
+    try {
+        for (element in result) {
+            if (max < element.value.toDouble()) {
+                max = element.value.toDouble()
+            }
         }
     }
-    return parts[numb]
+    catch (error: NumberFormatException){
+        return ""
+    }
+    if (!Regex("""[а-яА-я]+(?=\s$max)""").containsMatchIn(description)){
+        return "$max"
+    }
+    return Regex("""[а-яА-я]+(?=\s$max)""").find(description)!!.value
 }
+
 
 /**
  * Сложная
