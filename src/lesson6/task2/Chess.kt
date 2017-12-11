@@ -212,20 +212,20 @@ fun kingMoveNumber(start: Square, end: Square): Int {
 fun difference(a:Int, b: Int): Int =
         when{
             a > b -> -1
-            a < b -> 1
+            a < b -> +1
             else -> 0
         }
 fun kingTrajectory(start: Square, end: Square): List<Square> {
-    var ans = listOf(start)
+    var result = listOf(start)
     val length = kingMoveNumber(start, end)
     var currentSq = start
     for (ind in 0 until length) {
         val difCol = difference(currentSq.column, end.column)
         val difRow = difference(currentSq.row, end.row)
         currentSq = Square(currentSq.column + difCol, currentSq.row + difRow)
-        ans += currentSq
+        result += currentSq
     }
-    return ans
+    return result
 }
 
 /**
