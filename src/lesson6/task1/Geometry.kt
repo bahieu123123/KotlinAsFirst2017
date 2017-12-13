@@ -230,32 +230,5 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
  * три точки данного множества, либо иметь своим диаметром отрезок,
  * соединяющий две самые удалённые точки в данном множестве.
  */
-fun minContainingCircle(vararg points: Point): Circle {
-    when (points.size) {
-        1 -> return Circle(points[0], 0.0)
-        0 -> throw IllegalArgumentException("minContainingCircle")
-    }
-    val ansPoints = diameter(*points)
-    var ans = circleByDiameter(ansPoints)
-    var flag = true
-    var ind = 0
-    while (flag && ind < points.size) {
-        flag = ans.contains(points[ind])
-        ind++
-    }
-    if (!flag) {
-        var farthestPoint = points[0]
-        var maxDistance = farthestPoint.distance(ans.center)
-        for (i in 1 until points.size) {
-            val currentDistance = points[i].distance(ans.center)
-            if (currentDistance > maxDistance) {
-                maxDistance = currentDistance
-                farthestPoint = points[i]
-            }
-        }
-
-        ans = circleByThreePoints(ansPoints.begin, ansPoints.end, farthestPoint)
-    }
-    return ans
-}
+fun minContainingCircle(vararg points: Point): Circle = TODO()
 
