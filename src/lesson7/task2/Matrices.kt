@@ -103,13 +103,13 @@ fun generateRectangles(height: Int, width: Int): Matrix<Int> {
     val numb = (minOf(height, width) + 1) / 2
     var digit = 1
     for (i in 0..numb - 1) {
-        for (j in i..width - i - 1) {
-            result[i, j] = digit
-            result[height - i - 1, j] = digit
-        }
         for (j in i..height - i - 1) {
             result[j, width - i - 1] = digit
             result[j, i] = digit
+        }
+        for (j in i..width - i - 1) {
+            result[i, j] = digit
+            result[height - i - 1, j] = digit
         }
         digit++
     }
@@ -132,12 +132,12 @@ fun generateRectangles(height: Int, width: Int): Matrix<Int> {
 fun generateSnake(height: Int, width: Int): Matrix<Int> {
     val result = createMatrix(height, width, 0)
     var a = 0
-    for (column in 0 until width)
-        for (row in 0 until minOf(height, column + 1))
-            result[row, column - row] = ++a
     for (row in 1 until height)
         for (column in 0 until minOf(width, height - row))
             result[row + column, width - 1 - column] = ++a
+    for (column in 0 until width)
+        for (row in 0 until minOf(height, column + 1))
+            result[row, column - row] = ++a
     return result
 }
 
