@@ -135,7 +135,7 @@ fun generateSnake(height: Int, width: Int): Matrix<Int> =TODO()
  *
  * Содержимое квадратной матрицы matrix (с произвольным содержимым) повернуть на 90 градусов по часовой стрелке.
  * Если height != width, бросить IllegalArgumentException.
- *
+ *Пример
  * Пример:    Станет:
  * 1 2 3      7 4 1
  * 4 5 6      8 5 2
