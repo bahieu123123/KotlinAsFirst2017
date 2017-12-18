@@ -216,24 +216,7 @@ fun sumNeighbours(matrix: Matrix<Int>): Matrix<Int> = TODO()
  * 0 0 1 0
  * 0 0 0 0
  */
-fun findHoles(matrix: Matrix<Int>): Holes {
-    var rows = listOf<Int>()
-    var columns = listOf<Int>()
-    for (row in 0 until matrix.height) {
-        var sum = 0
-        for (column in 0 until matrix.width)
-            sum += matrix[row, column]
-        if (sum == 0) rows += row
-    }
-    for (column in 0 until matrix.width) {
-        var sum = 0
-        for (row in 0 until matrix.height)
-            sum += matrix[row, column]
-        if (sum == 0) columns += column
-    }
-    return Holes(rows, columns)
-}
-
+fun findHoles(matrix: Matrix<Int>): Holes = TODO()
 /**
  * Класс для описания местонахождения "дырок" в матрице
  */
