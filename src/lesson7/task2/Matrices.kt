@@ -100,7 +100,7 @@ fun generateSpiral(height: Int, width: Int): Matrix<Int> {
  */
 fun generateRectangles(height: Int, width: Int): Matrix<Int> {
     val result = createMatrix(height, width, 0)
-    val numb = (Math.min(height, width) + 1) / 2
+    val numb = (minOf(height, width) + 1) / 2
     var digit = 1
     for (i in 0..numb - 1) {
         for (j in i..width - i - 1) {

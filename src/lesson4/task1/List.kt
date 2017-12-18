@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.numberRevert
 import lesson1.task1.sqr
 import lesson3.task1.isPrime
 import lesson3.task1.minDivisor
@@ -207,14 +208,12 @@ fun factorize(n: Int): List<Int> {
         return multipliers
     }
     var number = n
-    while (number >= 2) {
-        for (i in 2..n / 2) {
-            if (number % i == 0) {
-                multipliers.add(i)
-                number /= i
-                break
-            }
-        }
+    var i=2
+    while (number > 1) {
+        if (number % i == 0) {
+            multipliers.add(i)
+            number = number / i
+        } else i++
     }
     return multipliers
 }
