@@ -3,6 +3,7 @@
 package lesson1.task1
 
 import java.lang.Math.*
+import java.util.*
 
 /**
  * Пример
@@ -123,3 +124,39 @@ fun accountInThreeYears(initial: Int, percent: Int): Double =
 fun numberRevert(number: Int): Int =
         (number % 10) * 100 + (number % 100 - number % 10) + (number - number % 100) / 100
 
+fun fac(n: Int): Int {
+    var result = 1
+    for (i in 1..n) {
+        result = result * i
+    }
+    return result
+}
+
+
+fun myFun(number: Int): Collection<Any> {
+    var n = number
+    var a = 0
+    for (k in 1..n) {
+        if (n - fac(k) > 0) continue
+        else {
+            a = k
+            break
+        }
+    }
+    val result= mutableListOf<Int>()
+    for (i in 0..a-2){
+        result.add(0)
+    }
+    var s = result.size
+    try {
+        while (n > 0 && s >= 0) {
+            result[s-1] = n / fac(a-1)
+            n = n - result[s - 1] * fac(a-1)
+            a = a - 1
+            s = s - 1
+        }
+        return result
+    } catch (e: IllegalArgumentException) {
+        return emptyList()
+    }
+}

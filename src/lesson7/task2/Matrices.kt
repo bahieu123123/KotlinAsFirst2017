@@ -256,8 +256,8 @@ fun canOpenLock(key: Matrix<Int>, lock: Matrix<Int>): Triple<Boolean, Int, Int> 
  * При инвертировании знак каждого элемента матрицы следует заменить на обратный
  */
 operator fun Matrix<Int>.unaryMinus(): Matrix<Int> {
-    for (row in 0 until height)
-        for (column in 0 until width)
+    for (column in 0 until width)
+        for (row in 0 until height)
             this[row,column] *= -1
     return this
 }
