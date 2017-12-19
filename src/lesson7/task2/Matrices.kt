@@ -105,11 +105,11 @@ fun generateRectangles(height: Int, width: Int): Matrix<Int> {
     for (i in 0..n - 1) {
         for (j in i..height - i - 1) {
             result[j, width - i - 1] = digit
-            digit = result[j, i]
+            result[j, i] = digit
         }
         for (j in i..width - i - 1) {
             result[i, j] = digit
-            digit = result[height - i - 1, j]
+            result[height - i - 1, j] = digit
         }
         digit++
     }
