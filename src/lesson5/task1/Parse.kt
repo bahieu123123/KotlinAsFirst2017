@@ -302,4 +302,64 @@ fun fromRoman(roman: String): Int = TODO()
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
+    var newList = "><+-[] "
+    var kM = cells / 2
+    var kCommand = 0
+    var nObra = 0
+    for (char in commands) when {
+        char !in newList -> throw IllegalArgumentException()
+        nObra < 0 -> throw IllegalArgumentException()
+        char == '[' -> nObra++
+        char == ']' -> nObra--
+    }
+    if (nObra != 0) throw IllegalArgumentException()
+    var DeviceCell = MutableList(cells) { 0 }
+    if (commands.isEmpty()) return DeviceCell
+    try {
+        for (i in 1..limit) {
+            when (commands[kCommand]) {
+                '>' -> {
+                    kCommand++
+                    kM++
+                }
+                '<' -> {
+                    kCommand++
+                    kM--
+                }
+                '+' -> {
+                    DeviceCell[kM]++
+                    kCommand++
+                }
+                '-' -> {
+                    DeviceCell[kM]--
+                    kCommand++
+                }
+                '[' -> if (DeviceCell[kM] == 0) {
+                    nObra = 1
+                    kCommand++
+                    while (nObra != 0) {
+                        if (commands[kCommand] == '[') nObra++
+                        if (commands[kCommand] == ']') nObra--
+                        kCommand++
+                    }
+                } else kCommand++
+                ']' -> if (DeviceCell[kM] != 0) {
+                    nObra = -1
+                    kCommand++
+                    while (nObra != 0) {
+                        if (commands[kCommand - 2] == '[') nObra++
+                        if (commands[kCommand - 2] == ']') nObra--
+                        kCommand--
+                    }
+                } else kCommand++
+                ' ' -> kCommand++
+            }
+            if (kM !in 0 until cells) throw IllegalStateException()
+            if (kCommand == commands.length) break
+        }
+        return DeviceCell
+    } catch (e: IndexOutOfBoundsException) {
+        throw IllegalArgumentException()
+    }
+}
