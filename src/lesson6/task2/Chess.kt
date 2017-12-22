@@ -273,3 +273,58 @@ fun knightMoveNumber(start: Square, end: Square): Int = TODO()
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
 
+fun steps(square: Square, set: Set<Square>): List<Square> {
+    val result = listOf(Square(square.column + 2, square.row - 1), Square(square.column + 2, square.row + 1),
+            Square(square.column - 2, square.row + 1), Square(square.column - 2, square.row - 1), Square(square.column - 1, square.row - 2),
+            Square(square.column - 1, square.row + 2), Square(square.column + 1, square.row - 2), Square(square.column + 1, square.row + 2))
+    return result.filter { it.inside() }.filter { it !in set }
+}
+fun knightTrajectory(start: Square, end: Square): List<Square> {
+    val set = mutableSetOf<Square>()
+    if (!start.inside() || !end.inside()) throw IllegalArgumentException()
+    if (start == end) return listOf(start)
+    var list = mutableListOf(start)
+    val listResult = mutableListOf(mutableListOf(start))
+    var temp = list
+    main@ while (end !in list) {
+        temp = list
+        list = mutableListOf<Square>()
+        listResult.add(mutableListOf())
+        for (element in temp) {
+            val steps = steps(element, set)
+            for (step in steps) {
+                list.add(step)
+                set.add(step)
+                listResult[listResult.size - 1].add(step)
+                if (end == step) break@main
+            }
+        }
+    }
+    val setEnd = mutableSetOf(end)
+    val tempList = mutableListOf(end)
+    list = mutableListOf(end)
+    var i = 2
+    var k = false
+    main@ while (start !in list) {
+        k = false
+        temp = list
+        list = mutableListOf<Square>()
+        loop@ for (element in temp) {
+            val steps = steps(element, setEnd)
+            for (step in steps) {
+                list.add(step)
+                setEnd.add(step)
+                if (step in listResult[listResult.size - i]) {
+                    i++
+                    tempList.add(step)
+                    list = mutableListOf(step)
+                    if (step == start) break@main
+                    break@loop
+                }
+            }
+        }
+    }
+    val result = mutableListOf<Square>()
+    for (j in 1..tempList.size) result.add(tempList[tempList.size - j])
+    return result
+}
