@@ -86,17 +86,16 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    val reg = Regex("ж|ш|ч|щ|Ж|Ш|Ч|Щ")
-    val vowels = listOf(Pair('Ы', 'И'), Pair('Я', 'А'), Pair('Ю', 'У'), Pair('ы', 'и'),
-            Pair('я', 'а'), Pair('ю', 'у'))
-    val input = File(inputName).readText().toMutableList()
-    for (i in 0 until input.size - 1)
-        if (reg matches input[i].toString())
-            for (j in 0 until vowels.size)
-                if (input[i + 1] == vowels[j].first) input[i + 1] = vowels[j].second
-    val result = File(outputName).bufferedWriter()
-    for (ch in input) result.append(ch)
-    result.close()
+    val text = File(inputName).readLines()
+    val writer = File(outputName).bufferedWriter()
+    val soglasnie = listOf('ж', 'Ж', 'ш', 'Ш', 'ч', 'Ч', 'щ', 'Щ')
+    val glasnie = mapOf('ы' to 'и', 'Ы' to 'И', 'ю' to 'у', 'Ю' to 'У', 'я' to 'а', 'Я' to 'А')
+    for (line in text) {
+        val newLine = line.mapIndexed { i, c -> if (i > 0 && glasnie.containsKey(c) && soglasnie.contains(line[i - 1])) glasnie[c]!! else c }
+        writer.write(newLine.joinToString(separator = ""))
+        writer.newLine()
+    }
+    writer.close()
 }
 
 /**
